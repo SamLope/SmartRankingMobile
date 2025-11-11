@@ -1,6 +1,14 @@
 // src/screens/Login.js
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, ScrollView, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+  ImageBackground,
+} from "react-native";
 import { useTheme } from "../context/ThemeContext";
 import { useAuth } from "../context/AuthContext";
 
@@ -24,67 +32,101 @@ export default function Login({ navigation }) {
   };
 
   return (
-    <ScrollView style={{ flex: 1, padding: 20, backgroundColor: colors.background }}>
-      <Text style={{ fontSize: 24, fontWeight: "bold", textAlign: "center", marginBottom: 30, color: colors.text }}>Login</Text>
-
-      <TextInput
-        value={email}
-        onChangeText={setEmail}
+    <ImageBackground
+      source={require("../../assets/background.png")} // mesmo fundo da Home
+      style={{ flex: 1, width: "100%", height: "100%" }}
+      resizeMode="cover"
+      blurRadius={1} // leve esfumaçado
+    >
+      <ScrollView
         style={{
-          backgroundColor: colors.inputBg,
-          color: colors.text,
-          padding: 15,
-          borderRadius: 8,
-          marginBottom: 15,
-          borderWidth: 1,
-          borderColor: colors.inputBorder,
-          fontSize: 16,
+          flex: 1,
+          padding: 20,
+          backgroundColor: darkMode
+            ? "rgba(0,0,0,0.5)"
+            : "rgba(255,255,255,0.6)", // transparência para leitura
         }}
-        placeholder="Email"
-        placeholderTextColor={darkMode ? "#888" : "#666"}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-
-      <TextInput
-        value={senha}
-        onChangeText={setSenha}
-        style={{
-          backgroundColor: colors.inputBg,
-          color: colors.text,
-          padding: 15,
-          borderRadius: 8,
-          marginBottom: 20,
-          borderWidth: 1,
-          borderColor: colors.inputBorder,
-          fontSize: 16,
-        }}
-        placeholder="Senha"
-        placeholderTextColor={darkMode ? "#888" : "#666"}
-        secureTextEntry
-      />
-
-      <TouchableOpacity
-        onPress={handleLogin}
-        style={{ backgroundColor: colors.primary, padding: 15, borderRadius: 8, alignItems: "center", marginBottom: 20 }}
+        contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
       >
-        <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 16 }}>
-          {loading ? "Entrando..." : "Entrar"}
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => navigation.navigate("Cadastro")}>
         <Text
           style={{
+            fontSize: 28,
+            fontWeight: "bold",
             textAlign: "center",
-            color: darkMode ? "#8ab4f8" : "#1a73e8",
-            textDecorationLine: "underline",
-            fontSize: 16,
+            marginBottom: 30,
+            color: colors.text,
           }}
         >
-          Não tem uma conta? Cadastre-se
+          Login
         </Text>
-      </TouchableOpacity>
-    </ScrollView>
+
+        <TextInput
+          value={email}
+          onChangeText={setEmail}
+          style={{
+            backgroundColor: colors.inputBg,
+            color: colors.text,
+            padding: 15,
+            borderRadius: 8,
+            marginBottom: 15,
+            borderWidth: 1,
+            borderColor: colors.inputBorder,
+            fontSize: 16,
+          }}
+          placeholder="Email"
+          placeholderTextColor={darkMode ? "#888" : "#666"}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+
+        <TextInput
+          value={senha}
+          onChangeText={setSenha}
+          style={{
+            backgroundColor: colors.inputBg,
+            color: colors.text,
+            padding: 15,
+            borderRadius: 8,
+            marginBottom: 20,
+            borderWidth: 1,
+            borderColor: colors.inputBorder,
+            fontSize: 16,
+          }}
+          placeholder="Senha"
+          placeholderTextColor={darkMode ? "#888" : "#666"}
+          secureTextEntry
+        />
+
+        <TouchableOpacity
+          onPress={handleLogin}
+          disabled={loading}
+          style={{
+            backgroundColor: colors.primary,
+            padding: 15,
+            borderRadius: 8,
+            alignItems: "center",
+            marginBottom: 20,
+            opacity: loading ? 0.7 : 1,
+          }}
+        >
+          <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 16 }}>
+            {loading ? "Entrando..." : "Entrar"}
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate("Cadastro")}>
+          <Text
+            style={{
+              textAlign: "center",
+              color: darkMode ? "#8ab4f8" : "#1a73e8",
+              textDecorationLine: "underline",
+              fontSize: 16,
+            }}
+          >
+            Não tem uma conta? Cadastre-se
+          </Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </ImageBackground>
   );
 }

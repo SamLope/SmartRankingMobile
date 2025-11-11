@@ -30,7 +30,7 @@ const customIcons = {
   Pesquisa: require('../../assets/pesquisaSR.png'),
   Ranking: require('../../assets/rankingSR.png'),
   Perfil: require('../../assets/perfilSR.png'),
-  Home: require('../../assets/LogoSR.png'),
+  Home: require('../../assets/homeSR.png'),
 };
 
 function CustomHeader({ route, darkMode }) {

@@ -1,6 +1,14 @@
 // src/screens/Cadastro.js
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, ScrollView, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+  ImageBackground,
+} from "react-native";
 import { useTheme } from "../context/ThemeContext";
 import { useAuth } from "../context/AuthContext";
 
@@ -27,84 +35,121 @@ export default function Cadastro({ navigation }) {
   };
 
   return (
-    <ScrollView style={{ flex: 1, padding: 20, backgroundColor: colors.background }}>
-      <Text style={{ fontSize: 24, fontWeight: "bold", textAlign: "center", marginBottom: 50, color: colors.text }}>Cadastro</Text>
-
-      <TextInput
-        value={nome}
-        onChangeText={setNome}
-        placeholder="Nome completo"
-        placeholderTextColor={darkMode ? "#888" : "#666"}
-        style={{
-          backgroundColor: colors.inputBg,
-          color: colors.text,
-          padding: 12,
-          borderRadius: 6,
-          marginBottom: 10,
-          borderWidth: 1,
-          borderColor: colors.inputBorder,
+    <ImageBackground
+      source={require("../../assets/background.png")} // mesmo fundo da Home
+      style={{ flex: 1, width: "100%", height: "100%" }}
+      resizeMode="cover"
+      blurRadius={1} // leve esfumaçado
+    >
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: "center",
+          padding: 20,
+          backgroundColor: darkMode
+            ? "rgba(0,0,0,0.5)"
+            : "rgba(255,255,255,0.6)", // leve transparência
         }}
-      />
-
-      <TextInput
-        value={data_nascimento}
-        onChangeText={setDataNascimento}
-        placeholder="Data de nascimento (YYYY-MM-DD)"
-        placeholderTextColor={darkMode ? "#888" : "#666"}
-        style={{
-          backgroundColor: colors.inputBg,
-          color: colors.text,
-          padding: 12,
-          borderRadius: 6,
-          marginBottom: 10,
-          borderWidth: 1,
-          borderColor: colors.inputBorder,
-        }}
-      />
-
-      <TextInput
-        value={email}
-        onChangeText={setEmail}
-        placeholder="Email"
-        placeholderTextColor={darkMode ? "#888" : "#666"}
-        keyboardType="email-address"
-        autoCapitalize="none"
-        style={{
-          backgroundColor: colors.inputBg,
-          color: colors.text,
-          padding: 12,
-          borderRadius: 6,
-          marginBottom: 10,
-          borderWidth: 1,
-          borderColor: colors.inputBorder,
-        }}
-      />
-
-      <TextInput
-        value={senha}
-        onChangeText={setSenha}
-        placeholder="Senha"
-        placeholderTextColor={darkMode ? "#888" : "#666"}
-        secureTextEntry
-        style={{
-          backgroundColor: colors.inputBg,
-          color: colors.text,
-          padding: 12,
-          borderRadius: 6,
-          marginBottom: 10,
-          borderWidth: 1,
-          borderColor: colors.inputBorder,
-        }}
-      />
-
-      <TouchableOpacity
-        onPress={handleRegister}
-        style={{ backgroundColor: "#2e7d32", padding: 12, borderRadius: 6, alignItems: "center", width: "100%" }}
       >
-        <Text style={{ color: "#fff", fontWeight: "bold" }}>
-          {loading ? "Cadastrando..." : "Cadastrar"}
+        <Text
+          style={{
+            fontSize: 28,
+            fontWeight: "bold",
+            textAlign: "center",
+            marginBottom: 40,
+            color: colors.text,
+          }}
+        >
+          Cadastro
         </Text>
-      </TouchableOpacity>
-    </ScrollView>
+
+        <TextInput
+          value={nome}
+          onChangeText={setNome}
+          placeholder="Nome completo"
+          placeholderTextColor={darkMode ? "#888" : "#666"}
+          style={{
+            backgroundColor: colors.inputBg,
+            color: colors.text,
+            padding: 15,
+            borderRadius: 8,
+            marginBottom: 15,
+            borderWidth: 1,
+            borderColor: colors.inputBorder,
+            fontSize: 16,
+          }}
+        />
+
+        <TextInput
+          value={data_nascimento}
+          onChangeText={setDataNascimento}
+          placeholder="Data de nascimento (YYYY-MM-DD)"
+          placeholderTextColor={darkMode ? "#888" : "#666"}
+          style={{
+            backgroundColor: colors.inputBg,
+            color: colors.text,
+            padding: 15,
+            borderRadius: 8,
+            marginBottom: 15,
+            borderWidth: 1,
+            borderColor: colors.inputBorder,
+            fontSize: 16,
+          }}
+        />
+
+        <TextInput
+          value={email}
+          onChangeText={setEmail}
+          placeholder="Email"
+          placeholderTextColor={darkMode ? "#888" : "#666"}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          style={{
+            backgroundColor: colors.inputBg,
+            color: colors.text,
+            padding: 15,
+            borderRadius: 8,
+            marginBottom: 15,
+            borderWidth: 1,
+            borderColor: colors.inputBorder,
+            fontSize: 16,
+          }}
+        />
+
+        <TextInput
+          value={senha}
+          onChangeText={setSenha}
+          placeholder="Senha"
+          placeholderTextColor={darkMode ? "#888" : "#666"}
+          secureTextEntry
+          style={{
+            backgroundColor: colors.inputBg,
+            color: colors.text,
+            padding: 15,
+            borderRadius: 8,
+            marginBottom: 25,
+            borderWidth: 1,
+            borderColor: colors.inputBorder,
+            fontSize: 16,
+          }}
+        />
+
+        <TouchableOpacity
+          onPress={handleRegister}
+          disabled={loading}
+          style={{
+            backgroundColor: "#2e7d32",
+            padding: 15,
+            borderRadius: 8,
+            alignItems: "center",
+            opacity: loading ? 0.7 : 1,
+          }}
+        >
+          <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 16 }}>
+            {loading ? "Cadastrando..." : "Cadastrar"}
+          </Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </ImageBackground>
   );
 }
